@@ -1,0 +1,29 @@
+{
+  "name": "text-dump",
+  "version": "1.0.0",
+  "description": "A small website where you can store text files",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CristianSimion5/text-dump.git"
+  },
+  "keywords": [
+    "textdump",
+    "text",
+    "drive"
+  ],
+  "author": "Cristian Simion",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/CristianSimion5/text-dump/issues"
+  },
+  "homepage": "https://github.com/CristianSimion5/text-dump#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "pug": "^2.0.4"
+  }
+}
