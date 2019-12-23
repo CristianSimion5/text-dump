@@ -17,6 +17,8 @@ const app = express();
 app.use(bodyParser.urlencoded( { extended: false }));
 app.use(bodyParser.json());
 
+app.use(express.static(path.join(__dirname, 'static')));
+
 // Check database connection
 db.once('open', () => {
     console.log('Connected successfully to the database');
@@ -47,11 +49,63 @@ app.get('/', (req, res) => {
     });
 });
 
+
+app.get('/dumps/edit/:id', (req, res) => {
+    Dump.findById(req.params.id, (err, dump) => {
+        if (err)  console.log(err);
+        else {
+            res.render('edit_dump', {
+                title: "Edit dump",
+                dump
+            });
+        }
+    });
+});
+
+app.post('/dumps/edit/:id', (req, res) => {
+    let dump = {};
+    dump.title = req.body.title;
+    dump.path = req.body.path;
+
+    let query = { _id: req.params.id};
+
+    Dump.updateOne(query, dump, (err) => {
+        if (err)    console.log(err);
+        else {
+            res.redirect('/');
+        }
+    });
+});
+
+app.delete('/dumps/:id', (req, res) => {
+    let query = { _id: req.params.id};
+
+    Dump.remove(query, (err) => {
+        if (err)    console.log(err);
+        else {
+            res.send('The dump was deleted');
+        }
+    });
+});
+
 app.get('/dumps/add', (req, res) => {
+    console.log("called");
     res.render('add_dump', {
         title: 'Add Dump'
     });
 });
+
+// Load individual dump view
+app.get('/dumps/:id', (req, res) => {
+    Dump.findById(req.params.id, (err, dump) => {
+        if (err)  console.log(err);
+        else {
+            res.render('dump', {
+                dump
+            });
+        }
+    });
+})
 
 app.post('/dumps/add', (req, res) => {
     let dump = new Dump();

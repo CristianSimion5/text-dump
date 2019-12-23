@@ -1,0 +1,9 @@
+extends layout
+
+block content
+  h1= dump.title
+  h5 Written by #{dump.author}
+  p= dump.path
+  hr
+  a.button.button-edit(href='/dumps/edit/'+dump._id) Edit
+  a.button.button-delete(href='#', data-id=dump._id) Delete

@@ -1,0 +1,13 @@
+extends layout
+
+block content
+  h1 #{title}
+  h3 Author: #{dump.author}
+  form(action="/dumps/edit/" + dump._id, method="post")
+    #form-group
+      label Title:
+      input.form-control(name='title', type='text', value=dump.title)
+    #form-group
+      label path:
+      textarea.form-control(name='path', type='text')=dump.path
+    input.button.button-primary(type="submit", value="Edit")
