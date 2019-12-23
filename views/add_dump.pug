@@ -1,4 +1,15 @@
 extends layout
 
 block content
-    h1 #{title}
+  h1 #{title}
+  form(action="/dumps/add", method="post")
+    #form-group
+      label Title:
+      input.form-control(name='title', type='text')
+    #form-group
+      label Author:
+      input.form-control(name='author', type='text')
+    #form-group
+      label path:
+      textarea.form-control(name='path', type='text')
+    input.button.button-primary(type="submit", value="Dump")
