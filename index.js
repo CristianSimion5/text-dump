@@ -17,8 +17,6 @@ const app = express();
 app.use(bodyParser.urlencoded( { extended: false }));
 app.use(bodyParser.json());
 
-app.use(express.static(path.join(__dirname, 'static')));
-
 // Check database connection
 db.once('open', () => {
     console.log('Connected successfully to the database');
@@ -37,20 +35,26 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 app.get('/', (req, res) => {
-    /*Dump.find({}, (err, dumps) => {
+    Dump.find({}, (err, dumps) => {
         if (err) {
             console.log(err);
         } else {
-            res.render('index', {
+            res.render('index.pug', {
                 title: "My files",
                 dumps
             });
         }
-    });*/
+    });
+});
+
+app.use(express.static(path.join(__dirname, 'static')));
+
+app.get('/dumps', (req, res) => {
     res.sendFile(path.join(__dirname, "/static/index.html"));
 });
 
-app.get('/dumps', (req, res) => {
+// TODO - change global to username
+app.get('/dumps/global', (req, res) => {
     Dump.find({}, (err, dumps) => {
         if (err) {
             console.log(err);
@@ -82,7 +86,7 @@ app.post('/dumps/edit/:id', (req, res) => {
     Dump.updateOne(query, dump, (err) => {
         if (err)    console.log(err);
         else {
-            res.redirect('/');
+            res.redirect('/dumps');
         }
     });
 });
@@ -93,7 +97,7 @@ app.delete('/dumps/:id', (req, res) => {
     Dump.remove(query, (err) => {
         if (err)    console.log(err);
         else {
-            res.send('The dump was deleted');
+            res.send('DELETE request');
         }
     });
 });
