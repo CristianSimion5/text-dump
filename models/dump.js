@@ -7,9 +7,9 @@ let dumpSchema = mongoose.Schema({
     },
     author: {
         type: String,
-        required: false
+        required: true
     },
-    path: {
+    body: {
         type: String,
         required: true
     }

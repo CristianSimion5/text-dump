@@ -37,7 +37,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 app.get('/', (req, res) => {
-    Dump.find({}, (err, dumps) => {
+    /*Dump.find({}, (err, dumps) => {
         if (err) {
             console.log(err);
         } else {
@@ -46,9 +46,19 @@ app.get('/', (req, res) => {
                 dumps
             });
         }
-    });
+    });*/
+    res.sendFile(path.join(__dirname, "/static/index.html"));
 });
 
+app.get('/dumps', (req, res) => {
+    Dump.find({}, (err, dumps) => {
+        if (err) {
+            console.log(err);
+        } else {
+            res.send(dumps);
+        }
+    });
+});
 
 app.get('/dumps/edit/:id', (req, res) => {
     Dump.findById(req.params.id, (err, dump) => {
@@ -65,7 +75,7 @@ app.get('/dumps/edit/:id', (req, res) => {
 app.post('/dumps/edit/:id', (req, res) => {
     let dump = {};
     dump.title = req.body.title;
-    dump.path = req.body.path;
+    dump.body = req.body.body;
 
     let query = { _id: req.params.id};
 
@@ -89,7 +99,6 @@ app.delete('/dumps/:id', (req, res) => {
 });
 
 app.get('/dumps/add', (req, res) => {
-    console.log("called");
     res.render('add_dump', {
         title: 'Add Dump'
     });
@@ -111,7 +120,7 @@ app.post('/dumps/add', (req, res) => {
     let dump = new Dump();
     dump.title = req.body.title;
     dump.author = req.body.author;
-    dump.path = req.body.path;
+    dump.body = req.body.body;
 
     dump.save((err) => {
         if (err)    console.log(err);
