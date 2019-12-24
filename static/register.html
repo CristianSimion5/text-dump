@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Register on TextDump</title>
+</head>
+<body>
+    <form action="/users/register" method="post">
+        <div id="form-group">
+            <label>Name:</label>
+            <input class="form-control" name="name" type="text" placeholder="e.g. John Smith">
+        </div>
+        <div id="form-group">
+            <label>E-Mail:</label>
+            <input class="form-control" name="email" type="text" placeholder="example@domain.com">
+        </div>
+        <div id="form-group">
+            <label>Username:</label>
+            <input class="form-control" name="username" type="text" placeholder="e.g. johnsmith45">
+        </div>
+        <div id="form-group">
+            <label>Password:</label>
+            <input class="form-control" name="password" type="password">
+        </div>
+        <div id="form-group">
+            <label>Confirm Password:</label>
+            <input class="form-control" name="password_confirm" type="password">
+        </div>
+        <input class="button button-primary" type="submit" value="Register"></form>
+</body>
+</html>

@@ -6,9 +6,14 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const mongoose = require('mongoose');
+const session = require('express-session');
+const flash = require('connect-flash');
+const passport = require('passport');
+const config = require('./config/database');
+
 
 // Connect to database
-mongoose.connect("mongodb://localhost/text-dump", { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(config.database, { useNewUrlParser: true, useUnifiedTopology: true });
 let db = mongoose.connection;
 
 const app = express();
@@ -16,6 +21,33 @@ const app = express();
 // Setup bodyParser
 app.use(bodyParser.urlencoded( { extended: false }));
 app.use(bodyParser.json());
+
+// express-session Middleware
+app.set('truest proxy', 1);
+app.use(session({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUnitialized: true,
+    cookie: { secure: true },
+}));
+
+// express-messages Middleware
+app.use(require('connect-flash')());
+app.use((req, res, next) => {
+    res.locals.messages = require('express-messages')(req, res);
+    next();
+});
+
+// Passport configuration
+require('./config/passport.js')(passport);
+// Passport Middleware
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.get('*', (req, res, next) => {
+    res.locals.user = req.user || null;
+    next();
+});
 
 // Check database connection
 db.once('open', () => {
@@ -47,92 +79,11 @@ app.get('/', (req, res) => {
     });
 });
 
-app.use(express.static(path.join(__dirname, 'static')));
-
-app.get('/dumps', (req, res) => {
-    res.sendFile(path.join(__dirname, "/static/index.html"));
-});
-
-// TODO - change global to username
-app.get('/dumps/global', (req, res) => {
-    Dump.find({}, (err, dumps) => {
-        if (err) {
-            console.log(err);
-        } else {
-            res.send(dumps);
-        }
-    });
-});
-
-app.get('/dumps/edit/:id', (req, res) => {
-    Dump.findById(req.params.id, (err, dump) => {
-        if (err)  console.log(err);
-        else {
-            res.render('edit_dump', {
-                title: "Edit dump",
-                dump
-            });
-        }
-    });
-});
-
-app.post('/dumps/edit/:id', (req, res) => {
-    let dump = {};
-    dump.title = req.body.title;
-    dump.body = req.body.body;
-
-    let query = { _id: req.params.id};
-
-    Dump.updateOne(query, dump, (err) => {
-        if (err)    console.log(err);
-        else {
-            res.redirect('/dumps');
-        }
-    });
-});
-
-app.delete('/dumps/:id', (req, res) => {
-    let query = { _id: req.params.id};
-
-    Dump.remove(query, (err) => {
-        if (err)    console.log(err);
-        else {
-            res.send('DELETE request');
-        }
-    });
-});
-
-app.get('/dumps/add', (req, res) => {
-    res.render('add_dump', {
-        title: 'Add Dump'
-    });
-});
-
-// Load individual dump view
-app.get('/dumps/:id', (req, res) => {
-    Dump.findById(req.params.id, (err, dump) => {
-        if (err)  console.log(err);
-        else {
-            res.render('dump', {
-                dump
-            });
-        }
-    });
-})
-
-app.post('/dumps/add', (req, res) => {
-    let dump = new Dump();
-    dump.title = req.body.title;
-    dump.author = req.body.author;
-    dump.body = req.body.body;
-
-    dump.save((err) => {
-        if (err)    console.log(err);
-        else {
-            res.redirect('/');
-        }
-    });
-});
+// Route files
+let dumps = require('./routes/dumps');
+let users = require('./routes/users');
+app.use('/dumps', dumps);
+app.use('/users', users);
 
 // Start server
 app.listen(3000, () => {
