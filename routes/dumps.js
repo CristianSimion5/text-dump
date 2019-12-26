@@ -4,15 +4,16 @@ const router = express.Router();
 
 // Load the model
 let Dump = require('../models/dump');
+let User = require('../models/user');
 
 router.use(express.static(path.join(__dirname, '../static')));
 
-router.get('/', (req, res) => {
+router.get('/', ensureAuthenticated, (req, res) => {
     res.sendFile(path.join(__dirname, "../static/index.html"));
 });
 
 // TODO - change global to username
-router.get('/global', (req, res) => {
+router.get('/global', ensureAuthenticated, (req, res) => {
     Dump.find({}, (err, dumps) => {
         if (err) {
             console.log(err);
@@ -23,18 +24,13 @@ router.get('/global', (req, res) => {
 });
 
 router.route('/edit/:id')
-    .get((req, res) => {
-        Dump.findById(req.params.id, (err, dump) => {
-            if (err)  console.log(err);
-            else {
-                res.render('edit_dump', {
-                    title: "Edit dump",
-                    dump
-                });
-            }
+    .get(ensureAuthenticated, ensureDumpOwner, (req, res) => {
+        res.render('edit_dump', {
+            title: "Edit dump",
+            dump: res.locals.dump
         });
     })
-    .post((req, res) => {
+    .post(ensureAuthenticated, ensureDumpOwner, (req, res) => {
         let dump = {};
         dump.title = req.body.title;
         dump.body = req.body.body;
@@ -52,15 +48,15 @@ router.route('/edit/:id')
 
 
 router.route('/add')
-    .get((req, res) => {
+    .get(ensureAuthenticated, (req, res) => {
         res.render('add_dump', {
             title: 'Add Dump'
         });
     })
-    .post((req, res) => {
+    .post(ensureAuthenticated, (req, res) => {
         let dump = new Dump();
+        dump.uid = req.user._id;
         dump.title = req.body.title;
-        dump.author = req.body.author;
         dump.body = req.body.body;
     
         dump.save((err) => {
@@ -74,17 +70,13 @@ router.route('/add')
 
 router.route('/:id')
     // Load individual dump view
-    .get((req, res) => {
-        Dump.findById(req.params.id, (err, dump) => {
-            if (err)  console.log(err);
-            else {
-                res.render('dump', {
-                    dump
-                });
-            }
+    .get(ensureAuthenticated, ensureDumpOwner, (req, res) => {
+        res.render('dump', {
+            dump: res.locals.dump,
+            author: req.user.name
         });
     })
-    .delete((req, res) => {
+    .delete(ensureAuthenticated, ensureDumpOwner, (req, res) => {
         let query = { _id: req.params.id};
     
         Dump.remove(query, (err) => {
@@ -94,5 +86,26 @@ router.route('/:id')
             }
         });
     });
+
+function ensureAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next();
+    } else {
+        res.status(401).render('unauthorized');
+    }
+}
+
+function ensureDumpOwner(req, res, next) {
+    Dump.findById(req.params.id, (err, dump) => {
+        if (err)  console.log(err, "here");
+        else if (dump.uid != req.user._id) {
+            console.log("You do not have permission to access this valid dump");
+            res.status(401).render('unauthorized');
+        } else {
+            res.locals.dump = dump;
+            next();
+        }
+    });
+}
 
 module.exports = router;

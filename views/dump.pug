@@ -2,7 +2,7 @@ extends layout
 
 block content
   h1= dump.title
-  h5 Written by #{dump.author}
+  h5 Written by #{author}
   p= dump.body
   hr
   a.button#button-edit(href='/dumps/edit/'+dump._id) Edit

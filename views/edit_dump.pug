@@ -2,7 +2,7 @@ extends layout
 
 block content
   h1 #{title}
-  h3 Author: #{dump.author}
+  h3 Author: #{author}
   form(action="/dumps/edit/" + dump._id, method="post")
     #form-group
       label Title:

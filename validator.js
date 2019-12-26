@@ -14,7 +14,6 @@ const userValidationRules = () => {
   ]
 }
 
-
 const validate = (req, res, next) => {
   req.errors = validationResult(req);
   next();

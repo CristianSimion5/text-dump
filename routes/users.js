@@ -12,10 +12,8 @@ let User = require('../models/user');
 
 router.use(express.static(path.join(__dirname, '../static')));
 
-
 router.route('/register')
     .get((req, res) => {
-        //res.sendFile(path.join(__dirname, "../static/register.html"));
         res.render('register');
     })
     .post(userValidationRules(), validate, (req, res) => {
@@ -58,7 +56,6 @@ router.route('/register')
 
 router.route('/login')
     .get((req, res) => {
-        //res.sendFile(path.join(__dirname, "../static/login.html"));
         res.render('login');
     })
     .post((req, res, next) => {
@@ -68,5 +65,12 @@ router.route('/login')
             failureFlash: true
         })(req, res, next);
     });
+
+// Logout
+router.get('/logout', (req, res) => {
+    req.logout();
+    req.flash('success', 'You have logged out');
+    res.redirect('/users/login');
+});
 
 module.exports = router;

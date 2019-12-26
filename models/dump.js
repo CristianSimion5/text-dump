@@ -5,11 +5,11 @@ let dumpSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    author: {
+    body: {
         type: String,
         required: true
     },
-    body: {
+    uid: {
         type: String,
         required: true
     }
