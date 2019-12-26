@@ -2,6 +2,14 @@ extends layout
 
 block content
     h1 #{title}
-    ul
+    table.dumps-table
+      tr
+        th Name
+        th Author
+        th Body (WIP)
       each dump, i in dumps
-        li= dump.title
+        tr
+          td 
+            a(href="/dumps/"+dump._id) #{dump.title}
+          td #{dump.author}
+          td #{dump.body}

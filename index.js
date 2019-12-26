@@ -26,9 +26,8 @@ app.use(bodyParser.json());
 app.set('truest proxy', 1);
 app.use(session({
     secret: 'keyboard cat',
-    resave: false,
-    saveUnitialized: true,
-    cookie: { secure: true },
+    resave: true,
+    saveUnitialized: true
 }));
 
 // express-messages Middleware
@@ -76,6 +75,12 @@ app.get('/', (req, res) => {
                 dumps
             });
         }
+    });
+});
+
+app.get('/success', (req, res) => {
+    res.render('success', {
+        title: "Success"
     });
 });
 

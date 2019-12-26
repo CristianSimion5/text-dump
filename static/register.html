@@ -7,6 +7,11 @@
     <title>Register on TextDump</title>
 </head>
 <body>
+    <div class="alert-box">
+        <span class="alert alert-succes" id="success-div"></span>
+        <span class="alert alert-danger" id="failure-div"></span>
+    </div>
+
     <form action="/users/register" method="post">
         <div id="form-group">
             <label>Name:</label>
@@ -29,5 +34,7 @@
             <input class="form-control" name="password_confirm" type="password">
         </div>
         <input class="button button-primary" type="submit" value="Register"></form>
+
+            <script src="./js/flash.js"></script>
 </body>
 </html>

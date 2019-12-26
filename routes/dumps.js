@@ -22,74 +22,77 @@ router.get('/global', (req, res) => {
     });
 });
 
-router.get('/edit/:id', (req, res) => {
-    Dump.findById(req.params.id, (err, dump) => {
-        if (err)  console.log(err);
-        else {
-            res.render('edit_dump', {
-                title: "Edit dump",
-                dump
-            });
-        }
+router.route('/edit/:id')
+    .get((req, res) => {
+        Dump.findById(req.params.id, (err, dump) => {
+            if (err)  console.log(err);
+            else {
+                res.render('edit_dump', {
+                    title: "Edit dump",
+                    dump
+                });
+            }
+        });
+    })
+    .post((req, res) => {
+        let dump = {};
+        dump.title = req.body.title;
+        dump.body = req.body.body;
+
+        let query = { _id: req.params.id };
+
+        Dump.updateOne(query, dump, (err) => {
+            if (err)    console.log(err);
+            else {
+                req.flash('success', 'Dump edited');
+                res.redirect('/success');
+            }
+        });
+    })
+
+
+router.route('/add')
+    .get((req, res) => {
+        res.render('add_dump', {
+            title: 'Add Dump'
+        });
+    })
+    .post((req, res) => {
+        let dump = new Dump();
+        dump.title = req.body.title;
+        dump.author = req.body.author;
+        dump.body = req.body.body;
+    
+        dump.save((err) => {
+            if (err)    console.log(err);
+            else {
+                req.flash('success', 'Dump Added');
+                res.redirect('/success');
+            }
+        });
     });
-});
 
-router.post('/edit/:id', (req, res) => {
-    let dump = {};
-    dump.title = req.body.title;
-    dump.body = req.body.body;
-
-    let query = { _id: req.params.id};
-
-    Dump.updateOne(query, dump, (err) => {
-        if (err)    console.log(err);
-        else {
-            res.redirect('/dumps');
-        }
+router.route('/:id')
+    // Load individual dump view
+    .get((req, res) => {
+        Dump.findById(req.params.id, (err, dump) => {
+            if (err)  console.log(err);
+            else {
+                res.render('dump', {
+                    dump
+                });
+            }
+        });
+    })
+    .delete((req, res) => {
+        let query = { _id: req.params.id};
+    
+        Dump.remove(query, (err) => {
+            if (err)    console.log(err);
+            else {
+                res.send('DELETE request');
+            }
+        });
     });
-});
-
-router.delete('/:id', (req, res) => {
-    let query = { _id: req.params.id};
-
-    Dump.remove(query, (err) => {
-        if (err)    console.log(err);
-        else {
-            res.send('DELETE request');
-        }
-    });
-});
-
-router.get('/add', (req, res) => {
-    res.render('add_dump', {
-        title: 'Add Dump'
-    });
-});
-
-// Load individual dump view
-router.get('/:id', (req, res) => {
-    Dump.findById(req.params.id, (err, dump) => {
-        if (err)  console.log(err);
-        else {
-            res.render('dump', {
-                dump
-            });
-        }
-    });
-})
-
-router.post('/add', (req, res) => {
-    let dump = new Dump();
-    dump.title = req.body.title;
-    dump.author = req.body.author;
-    dump.body = req.body.body;
-
-    dump.save((err) => {
-        if (err)    console.log(err);
-        else {
-            res.redirect('/');
-        }
-    });
-});
 
 module.exports = router;
