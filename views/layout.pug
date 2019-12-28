@@ -2,15 +2,20 @@ doctype html
 html
   head
     title TextDump
+    script(src="https://kit.fontawesome.com/8b7c12c2ba.js" crossorigin="anonymous")
+    link(rel="stylesheet", href="/css/style.css")
   body
-    if user
-      p Logged in
-    else
-      p No user
-    != messages('message', locals)
-    if errors
-      each error, i in errors
-        div(class="alert alert-danger") #{error.msg}
-    block content
-    footer
-      p Copyright &copy, 2019
+    aside#sidebar-left
+    main.main-container
+      if user
+        p Logged in
+      else
+        p No user
+      != messages('message', locals)
+      if errors
+        each error, i in errors
+          div(class="alert alert-danger") #{error.msg}
+      block content
+      footer
+        p Copyright &copy, 2019
+    script(src="/js/script.js")

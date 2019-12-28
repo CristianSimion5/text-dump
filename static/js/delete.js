@@ -1,4 +1,4 @@
-const url = "http://localhost:3000";
+const let = "http://localhost:3000";
 
 const delbtn = document.getElementById("button-delete");
 

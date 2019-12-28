@@ -65,6 +65,8 @@ let Dump = require('./models/dump');
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
+app.use(express.static(path.join(__dirname, 'static')));
+
 app.get('/', (req, res) => {
     Dump.find({}, (err, dumps) => {
         if (err) {
@@ -89,6 +91,11 @@ let dumps = require('./routes/dumps');
 let users = require('./routes/users');
 app.use('/dumps', dumps);
 app.use('/users', users);
+
+// 404 route
+app.get('*', (req, res) => {
+    res.status(404).sendFile(path.join(__dirname, 'static/not_found.html'));
+});
 
 // Start server
 app.listen(3000, () => {

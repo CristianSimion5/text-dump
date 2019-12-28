@@ -1,0 +1,34 @@
+* {
+    border: 1px solid red !important;
+}
+
+html {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+#sidebar-left {
+    float: left;
+    position: fixed;
+    width: 200px;
+    height: 100%;
+    background-color: aqua;
+}
+
+.menu-content {
+    display: flex;
+    flex-flow: column;
+}
+
+.main-container {
+    margin-left: 200px;
+    height: 100%;
+    background-color: green;
+    overflow: auto;
+}

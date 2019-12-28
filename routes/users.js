@@ -10,7 +10,7 @@ const { userValidationRules, validate } = require('../validator.js');
 // Load the model
 let User = require('../models/user');
 
-router.use(express.static(path.join(__dirname, '../static')));
+//router.use(express.static(path.join(__dirname, '../static')));
 
 router.route('/register')
     .get((req, res) => {
@@ -68,8 +68,10 @@ router.route('/login')
 
 // Logout
 router.get('/logout', (req, res) => {
-    req.logout();
-    req.flash('success', 'You have logged out');
+    if (req.user) {
+        req.logout();
+        req.flash('success', 'You have logged out');
+    }
     res.redirect('/users/login');
 });
 
