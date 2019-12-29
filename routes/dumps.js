@@ -93,7 +93,7 @@ router.route('/:id')
 
 function ensureAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
-        return next();
+        next();
     } else {
         res.status(401).render('unauthorized');
     }

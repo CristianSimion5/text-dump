@@ -1,0 +1,57 @@
+.dump-table-section {
+    padding: 1rem;
+}
+
+.dump-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+@media (max-width: 48em) {
+    .dump-table {
+        width: 48em;
+        overflow-x: auto;
+    }
+}
+
+.dump-header {
+    border-bottom: 2px solid #808080;
+    background-color: #f0f0f0;
+    color: #505050;
+}
+
+.dump-header:hover {
+    background-color: #e0e0e0;
+}
+
+.dump-row {
+    border-bottom: 1px solid #808080;
+}
+
+.dump-row:hover {
+    background-color: #fafafa;
+}
+
+.dump-cell {
+    padding: 1rem;
+    min-width: 50%;
+}
+
+.dump-title {
+    padding: 0;
+}
+
+.dump-link {
+    display: block;
+    
+    text-decoration: none;
+    color: black;
+    
+    padding: 1rem;
+    border: 2px solid transparent;
+}
+
+.dump-link:hover {
+    border-left: 2px solid black;
+}

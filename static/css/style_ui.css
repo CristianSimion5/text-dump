@@ -1,0 +1,160 @@
+/* Page layout */
+.page-grid {
+    display: grid;
+    grid-template-areas: 
+        "header header"
+        "nav main";
+    grid-template-rows: 8rem 1fr;
+    grid-template-columns: 16rem 1fr;
+}
+
+/* Header Layout */
+.header-top {
+    grid-area: header;
+    border-bottom: 1px solid #dbdbdb;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.user-button {
+    font-size: 1.5rem;
+
+    padding: 1rem;
+    border: 1px solid #e9e9e9;
+    border-radius: 3rem;
+    margin-right: 1rem;
+    box-shadow: 0 0 10px #dbdbdb;
+
+    background-color: #ffffff;
+    transition: background-color 200ms linear, box-shadow 200ms linear;
+}
+.user-button:hover {
+    box-shadow: 0 0 10px 3px #dadada; 
+    background-color: #f9f9f9;
+    cursor: pointer;
+}
+
+ .dropdown-menu {
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    transition: all 0.5s ease;
+
+    list-style-type: none;
+    padding: 3rem;
+    margin-top: 1.5rem;
+    display: none;
+    right: 1rem;
+}
+
+.user-button:focus-within > ul, .dropdown-menu:hover {
+    visibility: visible;
+    opacity: 1;
+    display:block;
+    box-shadow: 0 0 5px 1px #dadada; 
+    background-color: #f9f9f9;
+}
+
+.dropdown-menu-item {
+    padding: 0.8rem 0;
+}
+
+/* <ul class="dropdown-menu">
+                <li class="dropdown-menu-item"></li>
+                <li class="dropdown-menu-item"></li>
+                <li class="dropdown-menu-item"></li>
+                <li class="dropdown-menu-item"><a href="/users/logout">Logout</a></li>
+            </ul> */
+
+/* Logo block */
+.logo-container {
+    display: inline-flex;
+    height: 7rem;
+    align-items: center;
+}
+
+.logo-img-ui {
+    height: 100%;
+}
+
+
+.logo-text {
+    display: inline-block;
+    vertical-align: center;
+    font-size: 3rem;
+}
+
+
+.main-container {
+    grid-area: main;
+}
+
+
+/* Sidebar Menu */
+.sidebar-left {
+    grid-area: nav;
+    padding-top: 3rem;
+    padding-right: 2rem;
+    border-right: 1px solid #dbdbdb;
+}
+
+.sb-menu-container {
+    height: 100%;
+    color: #4e4e4e;
+    display: flex;
+    flex-direction: column;
+}
+
+.sb-menu-item {
+    display: grid;
+    grid-template-areas: 
+        "icon text";
+    grid-template-columns: 20% 1fr;
+
+    color: inherit;
+    text-decoration: inherit;
+    font-size: 1.5rem;
+
+    padding: 1rem 0 1rem 1rem;
+    border-radius: 0 2rem 2rem 0;
+}
+.sb-menu-item:hover {
+    background-color: #f0f0f0;
+}
+
+.sb-icon {
+    grid-area: icon;
+    text-align: center;
+}
+
+.sb-text {
+    grid-area: text;
+    margin-left: 0.625rem;
+}
+
+.sb-menu-plus {
+    font-size: 2rem;
+    
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    
+    border-radius: 3rem;
+    border: 1px solid #e9e9e9;
+
+    margin-left: 0.5rem;
+    margin-bottom: 1rem;
+    
+    box-shadow: 0 0 10px #dbdbdb;
+    transition: background-color 200ms linear, box-shadow 200ms linear;
+}
+
+
+.sb-menu-plus:hover {
+    box-shadow: 0 0 16px 5px #dadada; 
+    background-color: #f9f9f9;
+}
+
+.no-hover{
+    pointer-events: none;
+}

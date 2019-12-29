@@ -6,18 +6,32 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="https://kit.fontawesome.com/8b7c12c2ba.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style_ui.css">
+    <link rel="stylesheet" href="css/style_dump_table.css">
     <title>TextDump</title>
 </head>
-<body>
-    <header><h1>TextDump</h1></header>
-    <aside id="sidebar-left"></aside>
-    <main class="main-container">
-        <section id="dumps-list-section">
-            <h1>All dumps</h1>
+<body class="page-grid">
+    <header class="header header-top">
+        <div class="logo-container">
+            <img src="img/logo.png" alt="TextDump logo" class="logo-img logo-img-ui">
+            <span class="logo-text">TextDump</span>
+        </div>
+        <button class="user-button">
+            <span class="name"></span>
+            <ul class="dropdown-menu">
+                <li class="dropdown-menu-item">cristian_s</li>
+                <li class="dropdown-menu-item">cris_xtreme_53@yahoo.com</li>
+                <li class="dropdown-menu-item">Joined on 23.12.2019</li>
+                <li class="dropdown-menu-item"><a href="/users/logout">Logout</a></li>
+            </ul>
+        </button>
+    </header>
+    <aside class="sidebar sidebar-left"></aside>
+    <main class="main main-container">
+        <section class="dump-table-section">
         </section>
     </main>
-    <footer>Copyright &copy, 2019</footer>
     <script src="js/list_dumps.js"></script>
-    <script src="js/script.js"></script>
+    <script src="js/script_ui.js"></script>
 </body>
 </html>

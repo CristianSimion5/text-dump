@@ -1,4 +1,4 @@
-extends layout
+extends layout_ui
 
 block content
   h1= dump.title
@@ -7,4 +7,6 @@ block content
   hr
   a.button#button-edit(href='/dumps/edit/'+dump._id) Edit
   a.button#button-delete(href='#', data-id=dump._id) Delete
+
+append end-scripts
   script(src="/js/delete.js")

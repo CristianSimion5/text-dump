@@ -66,6 +66,10 @@ router.route('/login')
         })(req, res, next);
     });
 
+router.get('/data', (req, res) => {
+    res.json(req.user);
+});
+
 // Logout
 router.get('/logout', (req, res) => {
     if (req.user) {

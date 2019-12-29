@@ -1,0 +1,11 @@
+extends layout
+
+append styles
+  link(rel="stylesheet" type="text/css" href="/css/style_ui.css")
+
+prepend main-content
+  header
+  aside#sidebar-left
+
+block end-scripts
+  script(src="/js/script.js")
