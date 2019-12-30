@@ -90,7 +90,8 @@ body {
 
     cursor: pointer;
     transition: background-color 0.2s ease-in-out, 
-                box-shadow 0.2s ease-in-out;
+                box-shadow 0.2s ease-in-out,
+                color 0.2s ease-in-out;
 }
 
 .btn:first-child {
@@ -110,4 +111,14 @@ body {
 
 .btn-primary {
     transform: scale(1.2);
+}
+
+.btn-delete:hover {
+    background-color: #ff3a3a;
+    border-color: #ff3a3a;
+    color: #ffffffd0;
+}
+
+.btn-delete:focus {
+    box-shadow: 0 0 0.3rem 0.05rem #ff9090;
 }

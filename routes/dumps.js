@@ -8,20 +8,28 @@ const { dumpValidationRules, validate } = require('../validator.js');
 let Dump = require('../models/dump');
 let User = require('../models/user');
 
-//router.use(express.static(path.join(__dirname, '../static')));
+router.use(express.static(path.join(__dirname, '../static')));
 
 router.get('/', ensureAuthenticated, (req, res) => {
-    res.sendFile(path.join(__dirname, "../static/index.html"));
+    res.sendFile(path.join(__dirname, '../static', 'dumps.html'));
 });
 
 router.get('/get', ensureAuthenticated, (req, res) => {
-    Dump.find({ uid: req.user._id }, (err, dumps) => {
+    Dump.find({ uid: req.user._id, ...req.query }, (err, dumps) => {
         if (err) {
             console.log(err);
         } else {
             res.send(dumps);
         }
     });
+});
+
+router.get('/favorites', ensureAuthenticated, (req, res) => {
+    res.render('show_favorites');
+});
+
+router.get('/deleted', ensureAuthenticated, (req, res) => {
+    res.render('show_deleted');
 });
 
 router.route('/edit/:id')
@@ -42,7 +50,7 @@ router.route('/edit/:id')
             dump.title = req.body.title;
             dump.body = req.body.body;
             dump.modified = new Date();
-            dump.size = dump.body.length;
+            dump.size = (new TextEncoder().encode(dump.body)).length;
     
             let query = { _id: req.params.id };
     
@@ -56,6 +64,32 @@ router.route('/edit/:id')
         }
     })
 
+router.get('/restore/:id', ensureAuthenticated, ensureDumpOwner, (req, res) => {
+    let query = { _id: req.params.id };
+    Dump.updateOne(query, { deleted: false }, (err) => {
+        if (err)    console.log(err);
+        else {
+            req.flash('success', 'Dump restored');
+            res.send('Dump restored successfully');
+        }
+    });
+});
+
+router.get('/star/:id', ensureAuthenticated, ensureDumpOwner, (req, res) => {
+    let query = { _id: req.params.id };
+    Dump.findOne(query, (err, dump) => {
+        if (err)    console.log(err);
+        else {
+            dump.favorite = !dump.favorite;
+            dump.save((err) => {
+                if (err)    console.log(err);
+                else {
+                    res.send('Dump starred/unstarred successfully');
+                }
+            });
+        }
+    });
+});
 
 router.route('/add')
     .get(ensureAuthenticated, (req, res) => {
@@ -77,8 +111,8 @@ router.route('/add')
             dump.body = req.body.body;
             dump.created = new Date();
             dump.modified = new Date();
-            dump.size = dump.body.length;
-    
+            dump.size = (new TextEncoder().encode(dump.body)).length;;
+
             dump.save((err) => {
                 if (err)    console.log(err);
                 else {
@@ -105,14 +139,23 @@ router.route('/:id')
     })
     .delete(ensureAuthenticated, ensureDumpOwner, (req, res) => {
         let query = { _id: req.params.id};
-    
-        req.flash('success', 'Dump deleted')
-        Dump.remove(query, (err) => {
-            if (err)    console.log(err);
-            else {
-                res.send('DELETE request');
-            }
-        });
+        if (res.locals.dump.deleted === false) {
+            Dump.updateOne(query, { deleted: true }, (err) => {
+                if (err)    console.log(err);
+                else {
+                    req.flash('success', 'Dump moved to trash');
+                    res.send('DELETE request');
+                }
+            });
+        } else {
+            req.flash('success', 'Dump deleted')
+            Dump.remove(query, (err) => {
+                if (err)    console.log(err);
+                else {
+                    res.send('DELETE request');
+                }
+            });
+        }
     });
 
 function ensureAuthenticated(req, res, next) {
@@ -125,7 +168,7 @@ function ensureAuthenticated(req, res, next) {
 
 function ensureDumpOwner(req, res, next) {
     Dump.findById(req.params.id, (err, dump) => {
-        if (err)  console.log(err, "here");
+        if (err)  console.log(err);
         else if (dump.uid != req.user._id) {
             res.status(401).render('unauthorized');
         } else {

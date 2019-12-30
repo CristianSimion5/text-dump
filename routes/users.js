@@ -10,8 +10,6 @@ const { userValidationRules, validate } = require('../validator.js');
 // Load the model
 let User = require('../models/user');
 
-//router.use(express.static(path.join(__dirname, '../static')));
-
 router.route('/register')
     .get((req, res) => {
         if (req.user)

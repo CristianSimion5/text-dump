@@ -1,5 +1,5 @@
 {
-     var xhr= new XMLHttpRequest();
+    var xhr= new XMLHttpRequest();
     xhr.open('GET', 'http://localhost:3000/navbar.html', true);
     xhr.onreadystatechange= function() {
         if (this.readyState!==4) return;

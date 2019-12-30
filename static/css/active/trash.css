@@ -1,0 +1,5 @@
+.sb-menu-item:nth-child(4) {
+    background-color: #dcf5ff;
+    color: #015497;
+    cursor: default;
+}

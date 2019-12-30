@@ -1,7 +1,7 @@
 let url = "http://localhost:3000";
 
-function getDumps() {
-    fetch(url + '/dumps/get')
+function getDumps(selector) {
+    fetch(url + '/dumps/get' + selector)
         .then(
             (response) => {
                 if (response.status !== 200) {
@@ -105,5 +105,5 @@ function showDumps(dumps) {
 }
 
 window.onload = () => {
-    getDumps();
+    getDumps(selector);
 };

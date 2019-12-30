@@ -21,6 +21,16 @@ let dumpSchema = mongoose.Schema({
         type: Number,
         required: true
     },
+    favorite: {
+        type: Boolean,
+        default: false,
+        required: true
+    },
+    deleted: {
+        type: Boolean,
+        default: false,
+        required: true
+    },
     uid: {
         type: String,
         required: true

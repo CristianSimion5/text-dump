@@ -14,7 +14,16 @@ block content
     textarea.form-control.textarea#body(name='body' readonly)= dump.body
   div.btn-row
     a.btn.btn-primary.btn-edit(href='/dumps/edit/'+dump._id) Edit
+    if dump.deleted
+      a.btn.btn-primary.btn-restore(href='#', data-id=dump._id) Restore
     a.btn.btn-primary.btn-delete(href='#', data-id=dump._id) Delete
+    if !dump.deleted
+      if dump.favorite
+        a.btn.btn-primary.btn-star.starred(href='#', data-id=dump._id) 
+          i.fas.fa-star
+      else 
+        a.btn.btn-primary.btn-star(href='#', data-id=dump._id) 
+          i.fas.fa-star
 
 append end-scripts
-  script(src="/js/delete.js")
+  script(src="/js/buttons.js")

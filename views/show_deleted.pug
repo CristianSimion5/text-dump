@@ -1,0 +1,10 @@
+extends layout_ui
+
+append styles
+    link(rel="stylesheet" href="/css/style_dump_table.css")
+    link(rel="stylesheet" href="/css/active/trash.css")
+
+prepend end-scripts
+    script.
+        const selector = "?deleted=true";
+    script(src="/js/list_dumps.js")

@@ -1,0 +1,94 @@
+.about-header {
+    display: flex;
+    padding: 1rem;
+    justify-content: flex-end;
+    border-bottom: 1px solid #ced4da;
+}
+
+.main-container {
+    height: auto;
+}
+
+.main-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+
+    padding: 3rem;
+    border-radius: 0.2rem;
+}
+
+.logo {
+    display: block;
+    height: auto;
+    width: 100%;
+    max-width: 20rem;
+}
+
+.title {
+    font-size: 5rem;
+    margin: 0;
+}
+
+.subtitle {
+    font-size: 2rem;
+    margin: 0;
+}
+
+.description {
+    font-size: 1.3rem;
+}
+
+.btn {
+    border-radius: 0.2rem;
+}
+
+.box-container {
+    display: flex;
+    justify-content: space-between;
+
+    font-size: 1.2rem;
+
+    margin-top: 2rem;
+}
+
+.box {
+    position: relative;
+    width: 49%;
+
+    padding: 2rem;
+    padding-top: 1rem;
+    padding-bottom: 4rem;
+    border: 1px solid #ced4da;
+    border-radius: 0.2rem;
+
+}
+
+.box-description {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.btn-box {
+    width: 40%;
+    position: absolute;
+    bottom: 2rem;
+
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right:0;
+}
+
+@media (max-width: 768px) {
+    .box-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .box {
+        width: 80%;
+        margin-bottom: 1rem;
+    }
+}

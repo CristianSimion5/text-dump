@@ -1,0 +1,10 @@
+extends layout_ui
+
+append styles
+    link(rel="stylesheet" href="/css/style_dump_table.css")
+    link(rel="stylesheet" href="/css/active/favorites.css")
+
+prepend end-scripts
+    script.
+        const selector = "?favorite=true&deleted=false";
+    script(src="/js/list_dumps.js")

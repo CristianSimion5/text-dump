@@ -16,6 +16,14 @@ block content
     div.btn-row
       input.btn.txt-upload(type='file', accept='text/*')
       button.btn.btn-primary(type='submit') Confirm
+      if !dump.deleted
+        if dump.favorite
+          a.btn.btn-primary.btn-star.starred(href='#', data-id=dump._id) 
+            i.fas.fa-star
+        else 
+          a.btn.btn-primary.btn-star(href='#', data-id=dump._id) 
+            i.fas.fa-star
 
 append end-scripts
   script(src="/js/load_text.js")
+  script(src="/js/buttons.js")

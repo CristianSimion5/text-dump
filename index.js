@@ -67,18 +67,14 @@ app.set('view engine', 'pug');
 
 app.use(express.static(path.join(__dirname, 'static')));
 
-app.get('/', (req, res) => {
-    Dump.find({}, (err, dumps) => {
-        if (err) {
-            console.log(err);
-        } else {
-            res.render('index.pug', {
-                title: "My files",
-                dumps
-            });
-        }
-    });
+app.get('/about', (req, res) => {
+    res.sendFile(path.join(__dirname, 'static', 'about.html'));
 });
+
+app.get('/', (req, res) => {
+    res.redirect('/about');
+});
+
 
 // Route files
 let dumps = require('./routes/dumps');
@@ -88,7 +84,19 @@ app.use('/users', users);
 
 // 404 route
 app.get('*', (req, res) => {
-    res.status(404).sendFile(path.join(__dirname, 'static/not_found.html'));
+    res.status(404);
+    
+    if (req.accepts('html')) {
+        res.sendFile(path.join(__dirname, 'static/not_found.html'));
+        return;
+    }
+
+    if (req.accepts('json')) {
+        res.send({ error: 'Not found' });
+        return;
+    }
+
+    res.type('txt').send('Not found');
 });
 
 // Start server
