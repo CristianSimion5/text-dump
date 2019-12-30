@@ -80,12 +80,6 @@ app.get('/', (req, res) => {
     });
 });
 
-app.get('/success', (req, res) => {
-    res.render('success', {
-        title: "Success"
-    });
-});
-
 // Route files
 let dumps = require('./routes/dumps');
 let users = require('./routes/users');

@@ -2,6 +2,8 @@ const express = require('express');
 const path = require('path');
 const router = express.Router();
 
+const { dumpValidationRules, validate } = require('../validator.js');
+
 // Load the model
 let Dump = require('../models/dump');
 let User = require('../models/user');
@@ -25,52 +27,73 @@ router.get('/get', ensureAuthenticated, (req, res) => {
 router.route('/edit/:id')
     .get(ensureAuthenticated, ensureDumpOwner, (req, res) => {
         res.render('edit_dump', {
-            title: "Edit dump",
             dump: res.locals.dump
         });
     })
-    .post(ensureAuthenticated, ensureDumpOwner, (req, res) => {
-        let dump = {};
-        dump.title = req.body.title;
-        dump.body = req.body.body;
-        dump.modified = new Date();
-        dump.size = dump.body.length;
-
-        let query = { _id: req.params.id };
-
-        Dump.updateOne(query, dump, (err) => {
-            if (err)    console.log(err);
-            else {
-                req.flash('success', 'Dump edited');
-                res.redirect('/success');
-            }
-        });
+    .post(dumpValidationRules(), validate, ensureAuthenticated, ensureDumpOwner, (req, res) => {
+        if (req.errors.errors.length > 0) {
+            res.render('edit_dump', {
+                dump: res.locals.dump,
+                user: req.user,
+                errors: req.errors.errors
+            });
+        } else {
+            let dump = {};
+            dump.title = req.body.title;
+            dump.body = req.body.body;
+            dump.modified = new Date();
+            dump.size = dump.body.length;
+    
+            let query = { _id: req.params.id };
+    
+            Dump.updateOne(query, dump, (err) => {
+                if (err)    console.log(err);
+                else {
+                    req.flash('success', 'Dump edited');
+                    res.redirect('/dumps/success');
+                }
+            });
+        }
     })
 
 
 router.route('/add')
     .get(ensureAuthenticated, (req, res) => {
         res.render('add_dump', {
-            title: 'Add Dump'
+            title: 'Add new dump'
         });
     })
-    .post(ensureAuthenticated, (req, res) => {
-        let dump = new Dump();
-        dump.uid = req.user._id;
-        dump.title = req.body.title;
-        dump.body = req.body.body;
-        dump.created = new Date();
-        dump.modified = new Date();
-        dump.size = dump.body.length;
-
-        dump.save((err) => {
-            if (err)    console.log(err);
-            else {
-                req.flash('success', 'Dump Added');
-                res.redirect('/success');
-            }
-        });
+    .post(dumpValidationRules(), validate, ensureAuthenticated, (req, res) => {
+        if (req.errors.errors.length > 0) {
+            res.render('add_dump', {
+                title: "Add new dump",
+                user: req.user,
+                errors: req.errors.errors
+            });
+        } else {
+            let dump = new Dump();
+            dump.uid = req.user._id;
+            dump.title = req.body.title;
+            dump.body = req.body.body;
+            dump.created = new Date();
+            dump.modified = new Date();
+            dump.size = dump.body.length;
+    
+            dump.save((err) => {
+                if (err)    console.log(err);
+                else {
+                    req.flash('success', 'Dump Added');
+                    res.redirect('/dumps/success');
+                }
+            });
+        }        
     });
+
+router.get('/success', (req, res) => {
+    res.render('success', {
+        user: req.user
+    });
+});
 
 router.route('/:id')
     // Load individual dump view
@@ -83,6 +106,7 @@ router.route('/:id')
     .delete(ensureAuthenticated, ensureDumpOwner, (req, res) => {
         let query = { _id: req.params.id};
     
+        req.flash('success', 'Dump deleted')
         Dump.remove(query, (err) => {
             if (err)    console.log(err);
             else {

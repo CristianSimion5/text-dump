@@ -1,12 +1,20 @@
 extends layout_ui
 
+append styles
+  link(rel="stylesheet", href="/css/style_dump_form.css")
+
 block content
-  h1= dump.title
-  h5 Written by #{author}
-  p= dump.body
-  hr
-  a.button#button-edit(href='/dumps/edit/'+dump._id) Edit
-  a.button#button-delete(href='#', data-id=dump._id) Delete
+  div.form-group
+    label(for='title')
+      span.form-text Title:
+    input.form-control.form-title#title(name='title', type='text', value=dump.title readonly)
+  div.form-group
+    label(for='body') 
+      span.form-text Body:
+    textarea.form-control.textarea#body(name='body' readonly)= dump.body
+  div.btn-row
+    a.btn.btn-primary.btn-edit(href='/dumps/edit/'+dump._id) Edit
+    a.btn.btn-primary.btn-delete(href='#', data-id=dump._id) Delete
 
 append end-scripts
   script(src="/js/delete.js")

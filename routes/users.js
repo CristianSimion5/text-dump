@@ -14,11 +14,16 @@ let User = require('../models/user');
 
 router.route('/register')
     .get((req, res) => {
-        res.render('register');
+        if (req.user)
+            res.redirect('/dumps')
+        else
+            res.render('register',
+            { title: "Register" });
     })
     .post(userValidationRules(), validate, (req, res) => {
         if (req.errors.errors.length > 0) {
             res.render('register.pug', {
+                title: "Register",
                 errors: req.errors.errors
             });
         } else {
@@ -26,12 +31,14 @@ router.route('/register')
             const email = req.body.email;
             const username = req.body.username;
             const password = req.body.password;
-    
+            const joined = new Date();
+
             let newUser = new User({
                 name,
                 email,
                 username,
-                password
+                password,
+                joined
             });
     
             bcrypt.genSalt(10, (err, salt) => {
@@ -56,7 +63,11 @@ router.route('/register')
 
 router.route('/login')
     .get((req, res) => {
-        res.render('login');
+        if (req.user)
+            res.redirect('/dumps')
+        else
+            res.render('login',
+            { title: "Login" });
     })
     .post((req, res, next) => {
         passport.authenticate('local', {

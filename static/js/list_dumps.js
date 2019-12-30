@@ -23,7 +23,7 @@ function getDumps() {
 }
 
 const magnitude = [' ', ' K', ' M', ' G'];
-const options = { year: 'numeric', month: "short", day: "numeric"};
+let options = { year: 'numeric', month: "short", day: "numeric" };
 
 function showEntry(dump) {
     const trow = document.createElement("tr");
@@ -97,7 +97,7 @@ function showDumps(dumps) {
     th4.className = "dump-cell";
     theader.appendChild(th4);
     
-    document.getElementsByClassName('dump-table-section')[0].appendChild(table);
+    document.getElementsByClassName('main-container')[0].appendChild(table);
     
     dumps.forEach(dump => {
         showEntry(dump);

@@ -1,0 +1,29 @@
+.main-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+}
+
+.message-container {
+    margin-bottom: 10rem;
+
+    height: 40%;
+}
+
+.alert {
+    vertical-align: middle;
+    font-size: 5rem;
+    height: auto;
+    width: auto;
+    padding: 4rem;
+}
+
+.alert i {
+    font-size: 10rem;
+    display: block;
+}
+
+.alert span {
+    margin-left: 0;
+}

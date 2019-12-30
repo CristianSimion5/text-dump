@@ -1,6 +1,10 @@
-extends layout
+extends layout_ui
 
-block content
-    p TODO: Back button with link to where you want to go back
-    a(href="/dumps") Dumps
-    a(href="/users") User
+append styles
+    link(rel="stylesheet", href="/css/success.css")
+
+append end-scripts
+    script.
+        setTimeout(() => {
+            window.location = '/dumps';
+        }, 2000);

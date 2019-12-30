@@ -1,4 +1,4 @@
-.dump-table-section {
+.main-container{
     padding: 1rem;
 }
 
@@ -6,6 +6,7 @@
     width: 100%;
     border-collapse: collapse;
     text-align: left;
+    color: #3d3d3d;
 }
 
 @media (max-width: 48em) {
@@ -18,7 +19,7 @@
 .dump-header {
     border-bottom: 2px solid #808080;
     background-color: #f0f0f0;
-    color: #505050;
+    
 }
 
 .dump-header:hover {
@@ -35,7 +36,6 @@
 
 .dump-cell {
     padding: 1rem;
-    min-width: 50%;
 }
 
 .dump-title {
@@ -46,12 +46,12 @@
     display: block;
     
     text-decoration: none;
-    color: black;
+    color: #3d3d3d;
     
     padding: 1rem;
-    border: 2px solid transparent;
+    border: 3px solid transparent;
 }
 
 .dump-link:hover {
-    border-left: 2px solid black;
+    border-left: 3px solid black;
 }

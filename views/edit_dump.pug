@@ -1,13 +1,21 @@
 extends layout_ui
 
+append styles
+  link(rel="stylesheet", href="/css/style_dump_form.css")
+
 block content
-  h1 #{title}
-  h3 Author: #{author}
-  form(action="/dumps/edit/" + dump._id, method="post")
-    #form-group
-      label Title:
-      input.form-control(name='title', type='text', value=dump.title)
-    #form-group
-      label Body:
-      textarea.form-control(name='body', type='text')=dump.body
-    input.button.button-primary(type="submit", value="Edit")
+  form.form-card(action="/dumps/edit/" + dump._id, method="post")
+    div.form-group
+      label(for='title')
+        span.form-text Title:
+      input.form-control.form-title#title(name='title', type='text', value=dump.title)
+    div.form-group
+      label(for='body') 
+        span.form-text Body:
+      textarea.form-control.textarea#body(name='body')= dump.body
+    div.btn-row
+      input.btn.txt-upload(type='file', accept='text/*')
+      button.btn.btn-primary(type='submit') Confirm
+
+append end-scripts
+  script(src="/js/load_text.js")

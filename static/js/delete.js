@@ -1,14 +1,11 @@
-const let = "http://localhost:3000";
-
-const delbtn = document.getElementById("button-delete");
+const delbtn = document.getElementsByClassName("btn-delete")[0];
 
 delbtn.addEventListener("click", function removeDump(event) {
     delId = event.target.getAttribute("data-id");
-    fetch(url + "/dumps/" + delId, {
+    fetch("http://localhost:3000/dumps/" + delId, {
       method: 'DELETE'
     }).then((response) => {
-       console.log('removed', response.status);
-       window.location.href = '/dumps';
+       window.location.href = '/dumps/success';
     }).catch(err => {
       console.error(err)
     });

@@ -1,4 +1,9 @@
-.messages
-    each type in Object.keys(messages)
-        each message in messages[type]
-            div(class="alert alert-"+type) #{message}
+each type in Object.keys(messages)
+    each message in messages[type]
+        div(class="alert alert-"+type)
+            if type=='success'
+                i.fas.fa-check-circle 
+                span #{message}
+            else
+                i.fas.fa-times-circle 
+                span #{message}

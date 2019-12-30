@@ -14,6 +14,13 @@ const userValidationRules = () => {
   ]
 }
 
+const dumpValidationRules = () => {
+  return [
+    body('title', 'Title is required').not().isEmpty(),
+    body('body', 'The file is empty').notEmpty()
+  ]
+}
+
 const validate = (req, res, next) => {
   req.errors = validationResult(req);
   next();
@@ -21,5 +28,6 @@ const validate = (req, res, next) => {
 
 module.exports = {
   userValidationRules,
+  dumpValidationRules,
   validate,
 }

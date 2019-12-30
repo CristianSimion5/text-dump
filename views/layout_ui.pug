@@ -4,8 +4,20 @@ append styles
   link(rel="stylesheet" type="text/css" href="/css/style_ui.css")
 
 prepend main-content
-  header
-  aside#sidebar-left
+  header.header.header-top
+    div.logo-container
+      img.logo-img.logo-img-ui(src="/img/logo.png" alt="TextDump logo")
+      span.logo-text TextDump
+    div.user-button-div
+      button.user-button
+        span.name
+      ul.dropdown-menu
+        li.dropdown-menu-item #{user.username}
+        li.dropdown-menu-item #{user.email}
+        li.dropdown-menu-item Joined on 
+        li.dropdown-menu-item
+          a.link(href="/users/logout") Logout
+  aside.sidebar.sidebar-left
 
 block end-scripts
-  script(src="/js/script.js")
+  script(src="/js/script_ui.js")

@@ -1,23 +1,25 @@
 doctype html
-html
+<!DOCTYPE html>
+html(lang="en")
   head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    meta(http-equiv="X-UA-Compatible", content="ie=edge")
     title TextDump
     block head-scripts
       script(src="https://kit.fontawesome.com/8b7c12c2ba.js" crossorigin="anonymous")
     block styles
       link(rel="stylesheet" type="text/css" href="/css/style.css")
-  body
+  body.page-grid
     block main-content
       main.main-container
-        if user
-          p Logged in
-        else
-          p No user
-        != messages('message', locals)
-        if errors
-          each error, i in errors
-            div(class="alert alert-danger") #{error.msg}
+        if title
+          h1.title= title
+        .message-container!= messages('message', locals)
+          if errors
+            each error, i in errors
+              div(class="alert alert-error") 
+                i.fas.fa-times-circle  
+                span #{error.msg}
         block content
-        footer
-          p Copyright &copy, 2019
     block end-scripts

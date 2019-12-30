@@ -1,11 +1,18 @@
 extends layout
 
+append styles
+  link(rel="stylesheet", href="/css/style_form.css")
+
 block content
-  form(action='/users/login' method='post')
-    #form-group
-      label Username:
-      input.form-control(name='username' type='text')
-    #form-group
-      label Password:
-      input.form-control(name='password' type='password')
-    input.button.button-primary(type='submit' value='Login')
+  form.form-card(action='/users/login' method='post')
+    div.form-group
+      label(for='username') 
+        span.form-text Username:
+      input.form-control#username(name='username' type='text')
+    div.form-group
+      label(for='password') 
+        span.form-text Password:
+      input.form-control#password(name='password' type='password')
+    div.btn-row
+      a.link(href='/users/register') Register
+      button.btn.btn-primary(type='submit') Sign in

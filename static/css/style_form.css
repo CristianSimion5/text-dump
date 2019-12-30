@@ -1,0 +1,75 @@
+label {
+    display: inline-block;
+}
+
+h1 {
+    margin: 0;
+    text-align: center;
+}
+
+.page-grid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-container {
+    padding: 2rem;
+    padding-top: 1rem;
+
+    width: 30rem;
+    height: auto;
+
+    border: 1px solid #ced4da;
+    border-radius: 1rem;
+
+    box-shadow: 0 0 1rem 0.01rem #cccccc;
+}
+
+.form-card {
+    position: relative;
+    margin-top: 1rem;
+}
+
+.form-group {
+    width: 80%;
+    margin: 1rem auto;
+    margin-bottom: 1rem;
+}
+
+.form-text {
+    display: inline-block;
+
+    font-size: 1.5rem;
+
+    margin-left: 1rem;
+    margin-bottom: 0.1rem;
+}
+
+.form-control {
+    display: block;
+    width: 100%;
+
+    padding: .375rem 1rem;
+    line-height: 1.5;
+
+    font-size: 1rem;
+
+    border: 1px solid #ced4da;
+    border-radius: 2rem;
+
+    transition: box-shadow 0.1s ease-in-out;
+}
+
+.form-control:focus {
+    outline: none;
+    box-shadow: 0 0 0 0.1rem #88d3ff;
+}
+
+.btn-row {
+    display: flex;
+    width: 75%;
+    margin: auto;
+    justify-content: space-between;
+    align-items: center;
+}

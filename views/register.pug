@@ -1,21 +1,30 @@
 extends layout
 
+append styles
+  link(rel="stylesheet", href="/css/style_form.css")
+
 block content
-  h1 Register
   form(action='/users/register' method='post')
-    #form-group
-      label Name:
-      input.form-control(name='name' type='text' placeholder='e.g. John Smith')
-    #form-group
-      label E-Mail:
-      input.form-control(name='email' type='text' placeholder='example@domain.com')
-    #form-group
-      label Username:
-      input.form-control(name='username' type='text' placeholder='e.g. johnsmith45')
-    #form-group
-      label Password:
-      input.form-control(name='password' type='password')
-    #form-group
-      label Confirm Password:
-      input.form-control(name='password_confirm' type='password')
-    input.button.button-primary(type='submit' value='Register')
+    div.form-group
+      label(for='name') 
+        span.form-text Name:
+      input.form-control#name(name='name' type='text' placeholder='e.g. John Smith')
+    div.form-group
+      label(for='email') 
+        span.form-text E-Mail:
+      input.form-control#email(name='email' type='email' placeholder='example@domain.com')
+    div.form-group
+      label(for='username') 
+        span.form-text Username:
+      input.form-control#username(name='username' type='text' placeholder='e.g. johnsmith45')
+    div.form-group
+      label(for='password') 
+        span.form-text Password:
+      input.form-control#password(name='password' type='password')
+    div.form-group
+      label(for='password_confirm') 
+        span.form-text Confirm Password:
+      input.form-control#password_confirm(name='password_confirm' type='password')
+    div.btn-row
+      a.link(href='/users/login') Sign in
+      input.btn.btn-primary(type='submit' value='Register')
