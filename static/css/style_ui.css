@@ -102,6 +102,7 @@
     display: inline-block;
     vertical-align: center;
     font-size: 2rem;
+    font-weight: bold;
 }
 
 
@@ -154,7 +155,7 @@
 }
 
 .sb-menu-plus {
-    font-size: 2rem;
+    font-size: 1.8rem;
     
     padding-left: 0.5rem;
     padding-right: 0.5rem;
@@ -184,6 +185,36 @@
     pointer-events: none;
 }
 
+.sep-bar {
+    width: 100%;
+    border: 0;
+    border-bottom: 1px solid #dbdbdb;
+}
+
+.bar-container {
+    position: relative;
+    width: 100%;
+}
+
+.bar-grey {
+    border-top: 4px solid #eaeaea;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.bar-progress {
+    border-top: 4px solid #3b92f5;
+    position: absolute;
+    top: 0;
+}
+
+.bar-progress-description {
+    font-family: sans-serif;
+    font-size: 1.25rem;
+}
+
 @media (max-width: 768px) {
     .page-grid {
         grid-template-areas: 
@@ -200,8 +231,8 @@
     .sidebar-left {
         padding-top: 1rem;
         padding-right: 0;
-        border-left: 0;
-        border-bottom: 1px solid #e9e9e9;
+        border-right: 0;
+        border-bottom: 1px solid #dbdbdb;
     }
 
     .sb-menu-container {
@@ -211,6 +242,7 @@
     .sb-menu-item {
         width: 40%;
         padding: 0.5rem;
+        border-radius: 2rem;
     }
 
     .sb-menu-plus {

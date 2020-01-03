@@ -1,5 +1,4 @@
 * {
-    /* border: 1px solid red !important; */
     box-sizing: border-box;
 }
 
@@ -13,6 +12,7 @@ body {
     height: 100%;
     box-sizing: border-box;
     margin: 0;
+    font-family: 'Vollkorn', serif;
 }
 .main-container {
     height: 100%;
@@ -91,7 +91,8 @@ body {
     cursor: pointer;
     transition: background-color 0.2s ease-in-out, 
                 box-shadow 0.2s ease-in-out,
-                color 0.2s ease-in-out;
+                color 0.2s ease-in-out,
+                border 0.2s ease-in-out;
 }
 
 .btn:first-child {

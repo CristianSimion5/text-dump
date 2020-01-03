@@ -7,13 +7,12 @@
 
 .message-container {
     margin-bottom: 10rem;
-
     height: 40%;
 }
 
 .alert {
     vertical-align: middle;
-    font-size: 5rem;
+    font-size: 4rem;
     height: auto;
     width: auto;
     padding: 4rem;

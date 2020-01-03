@@ -50,4 +50,37 @@
             dropdownMenuItems[2].textContent += date.toLocaleDateString(undefined, options);
         }
     }
+
+    function getUserSize() {
+        fetch('http://localhost:3000/dumps/total_size')
+            .then((response) => {
+                if (response.status !== 200) {
+                    console.log('Looks like there was a problem. Status Code: ' +
+                    response.status);
+                    return;
+                }
+        
+                // Examine the text in the response
+                response.json().then((size_obj) => {
+                    renderProgressBar(size_obj.size);
+                });
+            })
+            .catch((err) => {
+                console.log('Fetch Error :-S', err);
+            });
+    }
+
+    const magnitude = [' ', ' K', ' M', ' G'];
+    function renderProgressBar(size) {
+        const percentage = size / Math.pow(1024, 3) * 100;
+        let magn = 0;
+        while (size >= 1024) {
+            magn++;
+            size /= 1024;
+        }        
+        document.getElementsByClassName("bar-progress")[0].style.width = percentage + "%";
+        document.getElementsByClassName("bar-progress-description")[0].textContent = Math.floor(size * 100) / 100 + magnitude[magn] + "B / 1 GB"
+    }
+
+    getUserSize();
 }

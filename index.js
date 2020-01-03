@@ -10,13 +10,16 @@ const session = require('express-session');
 const flash = require('connect-flash');
 const passport = require('passport');
 const config = require('./config/database');
-
+const favicon = require('serve-favicon');
 
 // Connect to database
 mongoose.connect(config.database, { useNewUrlParser: true, useUnifiedTopology: true });
 let db = mongoose.connection;
 
 const app = express();
+
+// Setup favicon
+app.use(favicon(path.join(__dirname, 'static', 'favicon.ico')));
 
 // Setup bodyParser
 app.use(bodyParser.urlencoded( { extended: false }));

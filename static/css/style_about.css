@@ -7,6 +7,7 @@
 
 .main-container {
     height: auto;
+    overflow: hidden;
 }
 
 .main-section {
@@ -81,14 +82,44 @@
     right:0;
 }
 
+.icon-credit {
+    text-align: center;
+}
+
+.icon-credit .link {
+    padding: 0 0.2rem;
+
+}
+
 @media (max-width: 768px) {
+    .main-section {
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+
     .box-container {
         flex-direction: column;
         align-items: center;
+        font-size: 1.1rem;
     }
 
     .box {
         width: 80%;
         margin-bottom: 1rem;
+
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .title {
+        font-size: 3.8rem;
+    }
+
+    .subtitle {
+        font-size: 1.75rem;
+    }
+
+    .description {
+        font-size: 1.2rem;
     }
 }

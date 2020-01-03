@@ -129,6 +129,20 @@ router.get('/success', (req, res) => {
     });
 });
 
+router.get('/total_size', ensureAuthenticated, (req, res) => {
+    Dump.find({ uid: req.user._id }, (err, dumps) => {
+        if (err) {
+            console.log(err);
+        } else {
+            let total_size = 0;
+            dumps.forEach(dump => {
+                total_size += dump.size;
+            });
+            res.json({ size: total_size });
+        }
+    });
+});
+
 router.route('/:id')
     // Load individual dump view
     .get(ensureAuthenticated, ensureDumpOwner, (req, res) => {

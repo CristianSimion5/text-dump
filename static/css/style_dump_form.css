@@ -37,12 +37,17 @@
 
 .btn-row {
     display: flex;
+    flex-wrap: wrap;
     width: auto; 
     margin: auto 1rem;
+    margin-top: -1rem;
     justify-content: flex-start;
     align-items: center;
 }
 
+.btn {
+    margin-top: 1rem;
+}
 
 .form-title {
     width: 30rem;
