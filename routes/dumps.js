@@ -38,7 +38,7 @@ router.route('/edit/:id')
             dump: res.locals.dump
         });
     })
-    .post(dumpValidationRules(), validate, ensureAuthenticated, ensureDumpOwner, (req, res) => {
+    .put(dumpValidationRules(), validate, ensureAuthenticated, ensureDumpOwner, (req, res) => {
         if (req.errors.errors.length > 0) {
             res.render('edit_dump', {
                 dump: res.locals.dump,
@@ -58,7 +58,7 @@ router.route('/edit/:id')
                 if (err)    console.log(err);
                 else {
                     req.flash('success', 'Dump edited');
-                    res.redirect('/dumps/success');
+                    res.send('Dump successfully edited');
                 }
             });
         }
@@ -117,13 +117,13 @@ router.route('/add')
                 if (err)    console.log(err);
                 else {
                     req.flash('success', 'Dump Added');
-                    res.redirect('/dumps/success');
+                    res.send('Dump successfully added');
                 }
             });
         }        
     });
 
-router.get('/success', (req, res) => {
+router.get('/success', ensureAuthenticated, (req, res) => {
     res.render('success', {
         user: req.user
     });

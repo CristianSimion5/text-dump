@@ -4,7 +4,7 @@ append styles
   link(rel="stylesheet", href="/css/style_dump_form.css")
 
 block content
-  form.form-card(action="/dumps/add", method="post")
+  form.form-card.form-add
     div.form-group
       label(for='title')
         span.form-text Title:
@@ -19,3 +19,4 @@ block content
 
 append end-scripts
   script(src="/js/load_text.js")
+  script(src="/js/buttons.js")

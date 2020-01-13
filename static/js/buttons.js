@@ -1,3 +1,51 @@
+const editForm = document.getElementsByClassName("form-edit")[0];
+
+if (editForm) {
+  const editId = editForm.getAttribute("data-id");
+  editForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const formData = new FormData(this);
+    const searchParams = new URLSearchParams();
+
+    for (const pair of formData) {
+      searchParams.append(pair[0], pair[1]);
+    }
+
+    fetch("http://localhost:3000/dumps/edit/" + editId, {
+      method: "put",
+      body: searchParams
+    }).then((response) => {
+      window.location.href = '/dumps/success';
+    }).catch(err => {
+      console.log(err);
+    })
+  });
+}
+
+const addForm = document.getElementsByClassName("form-add")[0];
+
+if (addForm) {
+  addForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const formData = new FormData(this);
+    const searchParams = new URLSearchParams();
+
+    for (const pair of formData) {
+      searchParams.append(pair[0], pair[1]);
+    }
+    fetch("http://localhost:3000/dumps/add", {
+      method: "post",
+      body: searchParams
+    }).then((response) => {
+      window.location.href = '/dumps/success';
+    }).catch(err => {
+      console.log(err);
+    })
+  });
+}
+
 const delbtn = document.getElementsByClassName("btn-delete")[0];
 
 if (delbtn) {
@@ -8,7 +56,7 @@ if (delbtn) {
       }).then((response) => {
          window.location.href = '/dumps/success';
       }).catch(err => {
-        console.error(err)
+        console.error(err);
       });
   });
 }

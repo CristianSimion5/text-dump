@@ -4,7 +4,7 @@ append styles
   link(rel="stylesheet", href="/css/style_dump_form.css")
 
 block content
-  form.form-card(action="/dumps/edit/" + dump._id, method="post")
+  form.form-card.form-edit(data-id=dump._id)
     div.form-group
       label(for='title')
         span.form-text Title:
